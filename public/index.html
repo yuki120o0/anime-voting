@@ -573,7 +573,7 @@
 
         // ===================== 全局配置与工具函数 =====================
         // 添加后端基础URL（你的后端地址）
-        const API_BASE_URL = 'http://127.0.0.1:8000'; // 关键：添加这一行，指定后端地址
+        const API_BASE_URL = window.location.origin + '/api';
         // 与后端VOTE_LEVELS严格同步
         const VOTE_LEVELS = {
             "bad": {"lable": "卧槽，柿！！！", "score": -1},
@@ -782,15 +782,7 @@ document.getElementById('login-form').addEventListener('submit', async function(
 
 
 
-// ===================== 退出登录功能 =====================
-// function logout() {
-//     // 清除所有本地存储的用户信息
-//     localStorage.removeItem('token');
-//     localStorage.removeItem('user');
-    
-//     // 刷新页面以重置界面
-//     window.location.reload();
-// }
+
 function logout() {
     // 清除所有本地存储的用户信息
     localStorage.removeItem('token');
@@ -810,36 +802,7 @@ function logout() {
     alert('已退出登录');
 }
 
-// ===================== 页面加载时检查登录状态 =====================
-// document.addEventListener('DOMContentLoaded', async function() {
-//     // 检查是否有token
-//     const token = localStorage.getItem('token');
-//     if (token) {
-//         try {
-//             // 尝试获取用户信息
-//             const userInfo = await fetchUserInfo();
-//             if (userInfo) {
-//                 // 更新导航栏
-//                 updateNavbarAfterLogin(userInfo);
-//                 // 更新欢迎界面
-//                 updateWelcomeSection(userInfo);
-//                 // 保存用户信息到本地存储
-//                 localStorage.setItem('user', JSON.stringify(userInfo));
-//             } else {
-//                 console.log('获取用户信息失败，用户需要重新登录');
-//                 localStorage.removeItem('token'); // 清除无效token
-//                 localStorage.removeItem('user');
-//             }
-//         } catch (e) {
-//             console.log('无法获取用户信息，用户需要重新登录');
-//             localStorage.removeItem('token');
-//             localStorage.removeItem('user');
-//         }
-//     }
-    
-//     // 绑定所有表单提交事件（确保它们都被绑定）
-//     bindFormEvents();
-// });
+
 document.addEventListener('DOMContentLoaded', async function() {
     // 检查是否有token
     const token = localStorage.getItem('token');
@@ -1911,4 +1874,5 @@ function closeSearchModal() {
 }
         </script>
         </html>
+
 
