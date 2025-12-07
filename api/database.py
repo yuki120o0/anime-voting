@@ -3,8 +3,8 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 from sqlalchemy import Column ,Integer,String,Text,Float,Boolean,DateTime,JSON
 from datetime import datetime, timezone
 
-#1.数据库连接配置
-SQLALCHEMY_DATABASE_URL="sqlite:////tmp/anime_voting.db"
+# 使用内存数据库（最简单，适合演示）
+SQLALCHEMY_DATABASE_URL = "sqlite:///:memory:"
 
 #2.创建数据库引擎
 engine = create_engine(SQLALCHEMY_DATABASE_URL,connect_args={"check_same_thread":False})
@@ -150,9 +150,15 @@ VOTE_LEVELS={
 }
 
 
-# 创建表的函数
+
+# 修改create_tables函数，确保在导入时创建表
 def create_tables():
-    Base.metadata.create_all(bind=engine)
+    try:
+        Base.metadata.create_all(bind=engine)
+        print("✅ 内存数据库表创建成功")
+    except Exception as e:
+        print(f"⚠️ 创建数据库表时出错: {e}")
+        # 不抛出异常，继续运行
 
 # 获取数据库会话的函数
 def get_db():
@@ -171,4 +177,5 @@ if __name__=="__main__":
 
 
     
+
 
