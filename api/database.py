@@ -4,7 +4,7 @@ from sqlalchemy import Column ,Integer,String,Text,Float,Boolean,DateTime,JSON
 from datetime import datetime, timezone
 
 #1.数据库连接配置
-SQLALCHEMY_DATABASE_URL="sqlite:///./anime_voting.db"
+SQLALCHEMY_DATABASE_URL="sqlite:////tmp/anime_voting.db"
 
 #2.创建数据库引擎
 engine = create_engine(SQLALCHEMY_DATABASE_URL,connect_args={"check_same_thread":False})
@@ -171,3 +171,4 @@ if __name__=="__main__":
 
 
     
+
