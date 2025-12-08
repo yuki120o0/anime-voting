@@ -573,7 +573,7 @@
 
         // ===================== 全局配置与工具函数 =====================
         // 添加后端基础URL（你的后端地址）
-        const API_BASE_URL = window.location.origin;
+        const API_BASE_URL = window.location.origin + 'api';
         // 与后端VOTE_LEVELS严格同步
         const VOTE_LEVELS = {
             "bad": {"lable": "卧槽，柿！！！", "score": -1},
@@ -1874,6 +1874,7 @@ function closeSearchModal() {
 }
         </script>
         </html>
+
 
 
 
