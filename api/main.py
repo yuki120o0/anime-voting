@@ -7,6 +7,11 @@ from protected_voting import router as voting_router
 from admin_api import router as admin_router
 from user_profile import router as user_router
 from search import router as search_router
+import os
+from dotenv import load_dotenv
+
+# 加载环境变量
+load_dotenv()
 
 # 创建数据库表
 create_tables()
@@ -15,7 +20,8 @@ create_tables()
 app = FastAPI(
     title="动漫投票系统",
     description="一个基于FastAPI和html的动漫投票系统",
-    version="1.0.0"
+    version="1.0.0"，
+    debug=os.getenv("DEBUG", "false").lower() == "true"  # 根据环境变量设置调试模式
 )
 
 # 添加CORS中间件
@@ -46,6 +52,7 @@ async def root():
 @app.get("/health")
 async def health_check():
     return {"status": "healthy", "message": "服务运行正常"}
+
 
 
 
