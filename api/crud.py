@@ -4,79 +4,7 @@ from sqlalchemy.orm.attributes import flag_modified
 from datetime import datetime, timezone
 
         
-# class VotingSessionCRUD:
-#     @staticmethod
-#     def create_session(db:Session,master_id:int,is_public:bool,title:str):
-#         session=VotingSession(master_id=master_id,is_public=is_public,title=title)
-#         try:
-#             db.add(session)
-#             db.commit()
-#             db.refresh(session)
-#             print(f"动漫投票会话创建成功，会话名：{title}(ID:{session.id})")
-#             return session
-#         except Exception as e:
-#             db.rollback()
-#             print(f"创建会话失败：{e}")
-#             return None
-        
-#     from sqlalchemy.orm.attributes import flag_modified
 
-#     @staticmethod
-#     def add_anime_to_session(db: Session, session_id: int, anime_data: dict):
-#         session = db.query(VotingSession).filter(VotingSession.id == session_id).first()
-#         try:
-#             if not session:
-#                 print(f"未找到ID为{session_id}的投票会话")
-#                 return None
-            
-#             # 确保 anime_list 已初始化
-#             if session.anime_list is None:
-#                 session.anime_list = []
-            
-#             # 检查动漫是否已存在（基于标题）
-#             anime_title = anime_data.get("title")
-#             anime_exists = False
-            
-#             for existing_anime in session.anime_list:
-#                 if existing_anime.get("title") == anime_title:
-#                     anime_exists = True
-#                     break
-            
-#             if not anime_exists:
-#                 # 创建新的列表（确保触发变更检测）
-#                 new_anime_list = session.anime_list.copy()  # 或者 list(session.anime_list)
-#                 new_anime_list.append(anime_data)
-#                 session.anime_list = new_anime_list
-                
-#                 # 明确标记字段已修改
-#                 flag_modified(session, "anime_list")
-                
-#                 db.commit()
-#                 db.refresh(session)
-#                 print(f"成功添加动漫: {anime_data}")
-#             else:
-#                 print(f"动漫 '{anime_title}' 已存在")
-            
-#             return session   
-                
-#         except Exception as e:
-#             db.rollback()
-#             print(f"错误：{e}")
-#             return None
-                
-    
-#     @staticmethod
-#     def get_all_animes(db:Session,session_id:int):
-        
-#         session = db.query(VotingSession).filter(session_id==VotingSession.id).first()
-#         if not session:
-#             return None
-#         try:
-#             return session.anime_list
-#         except Exception as e:
-#             db.rollback()
-#             print(f"错误{e}")
-#             return None
 
 
 from security import PasswordUtils
@@ -367,15 +295,7 @@ class VoteCRUD:
             print(f"错误：{e}")
             return {"error": "统计计算失败"}
 
-#get_db() 函数
-#     ↓ (生产)
-#Session 对象
-#     ↓ (传递给)
-#CRUD 方法的 db: Session 参数
-#    ↓ (使用)
-#数据库操作 (add, commit, query等)
-#     ↓ (返回结果)
-#业务逻辑处理
 
 #get_db()函数专门用来管理session
+
 #CRUD使用get_db()创建的seesion进行业务逻辑操作
