@@ -3,8 +3,9 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 from sqlalchemy import Column ,Integer,String,Text,Float,Boolean,DateTime,JSON
 from datetime import datetime, timezone
 
-# 使用内存数据库（最简单，适合演示）
-SQLALCHEMY_DATABASE_URL = "sqlite:///:memory:"
+# ✅ 或者修改为（支持生产环境）：
+import os
+SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./anime_vote.db")
 
 #2.创建数据库引擎
 engine = create_engine(SQLALCHEMY_DATABASE_URL,connect_args={"check_same_thread":False})
@@ -38,7 +39,7 @@ class User(Base):
 
     # 用户信息字段
     username = Column(String(50),unique=True,nullable=False)
-    password_hash = Column(String(50),nullable=False)
+    password_hash = Column(String(255),nullable=False)
     role = Column(String(50),default="guest")
 
     # 时间戳
@@ -47,7 +48,7 @@ class User(Base):
 
 # 创建投票
 class VotingSession(Base):
-    __tablename__="__voting_session__"
+    __tablename__="voting_session"
     
     # 主键
     id = Column(Integer,primary_key=True,index=True)
@@ -76,7 +77,7 @@ class VotingSession(Base):
 
 
 class Vote(Base):
-    __tablename__="__votes__"
+    __tablename__="votes"
 
     id = Column(Integer,primary_key=True,index=True)
 
@@ -177,5 +178,6 @@ if __name__=="__main__":
 
 
     
+
 
 
