@@ -32,11 +32,12 @@ app.add_middleware(
 )
 
 # 注册路由
-app.include_router(auth_router)
-app.include_router(voting_router)  
-app.include_router(admin_router)
-app.include_router(user_router)
-app.include_router(search_router)
+# 为所有路由添加 /api 前缀
+app.include_router(auth_router, prefix="/api")
+app.include_router(voting_router, prefix="/api")  
+app.include_router(admin_router, prefix="/api")
+app.include_router(user_router, prefix="/api")
+app.include_router(search_router, prefix="/api")
 
 @app.get("/")
 async def root():
@@ -45,6 +46,7 @@ async def root():
 @app.get("/health")
 async def health_check():
     return {"status": "healthy", "message": "服务运行正常"}
+
 
 
 
