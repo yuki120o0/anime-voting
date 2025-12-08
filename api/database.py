@@ -9,10 +9,14 @@ if SQLALCHEMY_DATABASE_URL.startswith("postgres://"):
     SQLALCHEMY_DATABASE_URL = SQLALCHEMY_DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
 #2.创建数据库引擎
-engine = create_engine(SQLALCHEMY_DATABASE_URL,connect_args={"check_same_thread":False})
-# check_same_thread 是 SQLite 的一个连接参数，用于控制是否检查数据库连接是否在同一个线程中使用
-# 其默认值为True，即在SQLite中默认数据库仅能有一个线程
-# 设置为False，则能同时连接多个线程
+engine = create_engine(
+        SQLALCHEMY_DATABASE_URL,
+        pool_pre_ping=True,      # 自动检查连接是否存活
+        pool_recycle=300,        # 连接回收时间（秒）
+        pool_size=5,            # 连接池大小
+        max_overflow=10,        # 最大溢出连接数
+        echo=True               # 可选：查看SQL日志
+    )
 
 
 #3.创建会话工厂
@@ -179,6 +183,7 @@ if __name__=="__main__":
 
 
     
+
 
 
 
