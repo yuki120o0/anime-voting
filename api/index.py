@@ -1,23 +1,25 @@
-# api/index.py
+
+
 import sys
 import os
 
-# 添加当前目录到路径
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+# 添加当前目录到 Python 路径
+current_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, current_dir)
 
-# 导入你的FastAPI应用
 try:
+    # 导入 FastAPI 应用
     from main import app
-    print("✅ 成功导入FastAPI应用")
-except ImportError as e:
-    print(f"❌ 导入应用失败: {e}")
+    print("✅ FastAPI 应用导入成功")
+except Exception as e:
+    print(f"❌ 导入失败: {e}")
+    import traceback
+    traceback.print_exc()
     raise
 
-# Vercel需要这个handler
-from mangum import Mangum
-handler = Mangum(app, lifespan="off")
+application = app
 
-# 本地测试
+# 本地开发时使用
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
