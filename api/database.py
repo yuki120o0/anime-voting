@@ -3,9 +3,10 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 from sqlalchemy import Column ,Integer,String,Text,Float,Boolean,DateTime,JSON
 from datetime import datetime, timezone
 
-# ✅ 或者修改为（支持生产环境）：
 import os
 SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./anime_vote.db")
+if SQLALCHEMY_DATABASE_URL.startswith("postgres://"):
+    SQLALCHEMY_DATABASE_URL = SQLALCHEMY_DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
 #2.创建数据库引擎
 engine = create_engine(SQLALCHEMY_DATABASE_URL,connect_args={"check_same_thread":False})
@@ -178,6 +179,7 @@ if __name__=="__main__":
 
 
     
+
 
 
 
