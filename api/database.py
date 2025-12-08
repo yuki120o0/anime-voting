@@ -2,20 +2,16 @@ from sqlalchemy import create_engine,UniqueConstraint
 from sqlalchemy.orm import sessionmaker, declarative_base
 from sqlalchemy import Column ,Integer,String,Text,Float,Boolean,DateTime,JSON
 from datetime import datetime, timezone
-
 import os
-SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./anime_vote.db")
-if SQLALCHEMY_DATABASE_URL.startswith("postgres://"):
-    SQLALCHEMY_DATABASE_URL = SQLALCHEMY_DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
+DATABASE_URL = os.getenv("DATABASE_URL")
+
 
 #2.创建数据库引擎
 engine = create_engine(
-        SQLALCHEMY_DATABASE_URL,
-        pool_pre_ping=True,      # 自动检查连接是否存活
-        pool_recycle=300,        # 连接回收时间（秒）
-        pool_size=5,            # 连接池大小
-        max_overflow=10,        # 最大溢出连接数
-        echo=True               # 可选：查看SQL日志
+        DATABASE_URL,
+        
+        echo=False           
     )
 
 
@@ -177,12 +173,14 @@ def get_db():
         yield db
     finally:
         db.close()
+        
 if __name__=="__main__":
     create_tables()
 
 
 
     
+
 
 
 
