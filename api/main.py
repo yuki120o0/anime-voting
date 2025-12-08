@@ -20,7 +20,7 @@ create_tables()
 app = FastAPI(
     title="动漫投票系统",
     description="一个基于FastAPI和html的动漫投票系统",
-    version="1.0.0"，
+    version="1.0.0",
     debug=os.getenv("DEBUG", "false").lower() == "true"  # 根据环境变量设置调试模式
 )
 
@@ -52,6 +52,7 @@ async def root():
 @app.get("/health")
 async def health_check():
     return {"status": "healthy", "message": "服务运行正常"}
+
 
 
 
