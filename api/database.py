@@ -8,7 +8,7 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 
 
 #2.创建数据库引擎
- engine = create_engine(
+engine = create_engine(
         DATABASE_URL,
         # 连接池配置
         pool_size=5,           # 连接池大小
@@ -183,6 +183,7 @@ if __name__=="__main__":
 
 
     
+
 
 
 
